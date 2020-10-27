@@ -1,4 +1,6 @@
 """测试计算器(加、减、乘、除）"""
+import pytest
+
 
 class Calculator:
 
@@ -27,6 +29,19 @@ class Calculator:
 
 
     def add(self,num1,num2):
+        # 非数字判断
+        if self.isscalar(num1) or self.isscalar(num2) :
+            return "输入类型错误"
+        else:
+            # float类型判断
+            fn1 = self.hasFloat(num1)
+            fn2 = self.hasFloat(num2)
+            if fn1 == 0 and fn2 == 0:
+                return num1 + num2
+            else:
+                return round(num1 + num2, fn1 if fn1 >= fn2 else fn2)
+
+    def add1(self,num1:int,num2:int) ->int:
         # 非数字判断
         if self.isscalar(num1) or self.isscalar(num2) :
             return "输入类型错误"
@@ -83,4 +98,5 @@ class Calculator:
 
 # if __name__ == "__main__":
 #     calc = Calculator()
-#     print(calc.sub(0.35, 0.15))
+#     with pytest.raises(ZeroDivisionError):
+#         print(calc.div(0.35, 0))
